@@ -36,6 +36,7 @@ class CustomServer(SimpleHTTPRequestHandler):
                 "No permission to list directory")
             return None
         path_list.sort(key=lambda a: a.lower())
+        path_list.sort(key=lambda a: not os.path.isdir(a))  # Directories first.
         r = []
         try:
             displaypath = urllib.parse.unquote(self.path,
